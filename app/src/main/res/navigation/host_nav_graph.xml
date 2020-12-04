@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/host_nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.teacherassistant.View.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_courseListFragment"
+            app:destination="@id/courseListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_manageStudentListFragment"
+            app:destination="@id/manageStudentListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_manageCourseListFragment"
+            app:destination="@id/manageCourseListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_todaysActivitiesFragment"
+            app:destination="@id/todaysActivitiesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/courseListFragment"
+        android:name="com.example.teacherassistant.View.CourseListFragment"
+        android:label="fragment_course_list"
+        tools:layout="@layout/fragment_course_list" >
+        <action
+            android:id="@+id/action_courseListFragment_to_selectedCourseStudentListFragment"
+            app:destination="@id/selectedCourseStudentListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectedCourseStudentListFragment"
+        android:name="com.example.teacherassistant.View.SelectedCourseStudentListFragment"
+        android:label="fragment_selected_course_student_list"
+        tools:layout="@layout/fragment_selected_course_student_list" >
+        <action
+            android:id="@+id/action_selectedCourseStudentListFragment_to_selectedStudentGradeListFragment"
+            app:destination="@id/selectedStudentGradeListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectedStudentGradeListFragment"
+        android:name="com.example.teacherassistant.View.SelectedStudentGradeListFragment"
+        android:label="fragment_selected_student_grade_list"
+        tools:layout="@layout/fragment_selected_student_grade_list" >
+        <action
+            android:id="@+id/action_selectedStudentGradeListFragment_to_editSelectedOrNewGradeFragment"
+            app:destination="@id/editSelectedOrNewGradeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editSelectedOrNewGradeFragment"
+        android:name="com.example.teacherassistant.View.EditSelectedOrNewGradeFragment"
+        android:label="fragment_edit_selected_or_new_grade"
+        tools:layout="@layout/fragment_edit_selected_or_new_grade" />
+    <fragment
+        android:id="@+id/manageStudentListFragment"
+        android:name="com.example.teacherassistant.View.ManageStudentListFragment"
+        android:label="fragment_manage_student_list"
+        tools:layout="@layout/fragment_manage_student_list" >
+        <action
+            android:id="@+id/action_manageStudentListFragment_to_editSelectedOrNewStudentFragment"
+            app:destination="@id/editSelectedOrNewStudentFragment" />
+        <action
+            android:id="@+id/action_manageStudentListFragment_to_selectedStudentCourseListFragment"
+            app:destination="@id/selectedStudentCourseListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editSelectedOrNewStudentFragment"
+        android:name="com.example.teacherassistant.View.EditSelectedOrNewStudentFragment"
+        android:label="fragment_edit_selected_or_new_student"
+        tools:layout="@layout/fragment_edit_selected_or_new_student" />
+    <fragment
+        android:id="@+id/selectedStudentCourseListFragment"
+        android:name="com.example.teacherassistant.View.SelectedStudentCourseListFragment"
+        android:label="fragment_selected_student_course_list"
+        tools:layout="@layout/fragment_selected_student_course_list" >
+        <action
+            android:id="@+id/action_selectedStudentCourseListFragment_to_selectedStudentGradeListFragment"
+            app:destination="@id/selectedStudentGradeListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageCourseListFragment"
+        android:name="com.example.teacherassistant.View.ManageCourseListFragment"
+        android:label="fragment_manage_course_list"
+        tools:layout="@layout/fragment_manage_course_list" >
+        <action
+            android:id="@+id/action_manageCourseListFragment_to_editSelectedOrNewCourseFragment"
+            app:destination="@id/editSelectedOrNewCourseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editSelectedOrNewCourseFragment"
+        android:name="com.example.teacherassistant.View.EditSelectedOrNewCourseFragment"
+        android:label="fragment_edit_selected_or_new_course"
+        tools:layout="@layout/fragment_edit_selected_or_new_course" />
+    <fragment
+        android:id="@+id/todaysActivitiesFragment"
+        android:name="com.example.teacherassistant.View.TodaysActivitiesFragment"
+        android:label="fragment_todays_activities"
+        tools:layout="@layout/fragment_todays_activities" />
+</navigation>

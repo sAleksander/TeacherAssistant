@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="20dp"
+    tools:context=".View.HomeFragment">
+
+    <Button
+        android:id="@+id/goCourseList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Courses"
+        app:layout_constraintBottom_toTopOf="@+id/goManageStudentList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="20dp"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/goManageStudentList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Manage Students"
+        app:layout_constraintBottom_toTopOf="@+id/goManageCourseList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="20dp"
+        android:textSize="20sp"
+
+        app:layout_constraintTop_toBottomOf="@+id/goCourseList" />
+
+    <Button
+        android:id="@+id/goManageCourseList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Manage Courses"
+        app:layout_constraintBottom_toTopOf="@+id/goTodaysActivities"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="20dp"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/goManageStudentList" />
+
+    <Button
+        android:id="@+id/goTodaysActivities"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Todays activity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="20dp"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/goManageCourseList" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
