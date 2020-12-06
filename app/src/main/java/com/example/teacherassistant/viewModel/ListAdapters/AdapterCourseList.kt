@@ -11,11 +11,11 @@ import com.example.teacherassistant.R
 import kotlinx.android.synthetic.main.recycler_single_name_item.view.*
 
 class AdapterCourseList(
-    private val courseList: LiveData<ArrayList<Course>>,
+    var courseList: LiveData<List<Course>>,
     private val onClick: (position: Int) -> Unit
 ) : RecyclerView.Adapter<AdapterCourseList.CourseViewHolder>() {
     inner class CourseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-       val textView: TextView = itemView.itemSingleLineText
+        val textView: TextView = itemView.itemSingleLineText
         init {
             itemView.setOnClickListener { onClick(adapterPosition) }
         }
@@ -36,5 +36,4 @@ class AdapterCourseList(
             holder.textView.setText(currentitem.Name.toString())
         }
     }
-
 }

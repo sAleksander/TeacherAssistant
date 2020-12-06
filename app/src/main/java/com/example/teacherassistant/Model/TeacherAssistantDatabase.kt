@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.teacherassistant.Model.DAOs.CourseDAO
 
-@Database(entities = arrayOf(Course::class), version = 1, exportSchema = false)
+@Database(entities = [Course::class], version = 1, exportSchema = false)
 public abstract class TeacherAssistantDatabase : RoomDatabase() {
 
     abstract fun CourseDAO(): CourseDAO
@@ -19,7 +19,7 @@ public abstract class TeacherAssistantDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     TeacherAssistantDatabase::class.java,
-                    "TeacherAssistantDatabase"
+                    "teacher_assistant_database"
                 ).build()
                 INSTANCE = instance
                 instance
