@@ -15,7 +15,7 @@ class MainViewModel(application: Application):AndroidViewModel(application) {
     private val courseRepository:CourseRepository
 
     init {
-        courses = TeacherAssistantDatabase.getDatabase(application).CourseDAO().getAlphabetizedCourseNames()
+        courses = TeacherAssistantDatabase.getDatabase(application).CourseDAO().getAllCourses()
         courseRepository = CourseRepository(TeacherAssistantDatabase.getDatabase(application).CourseDAO())
     }
 
