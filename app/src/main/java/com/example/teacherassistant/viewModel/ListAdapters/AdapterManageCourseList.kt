@@ -11,36 +11,37 @@ import com.example.teacherassistant.R
 import com.example.teacherassistant.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.recycler_single_name_item.view.*
 
-class AdapterCourseList(
+class AdapterManageCourseList(
     var courseList: LiveData<List<Course>>,
     private val onClick: (position: Int) -> Unit,
     private val viewModel: MainViewModel
-) : RecyclerView.Adapter<AdapterCourseList.CourseViewHolder>() {
-    inner class CourseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+) : RecyclerView.Adapter<AdapterManageCourseList.ManageCourseViewHolder>() {
+    inner class ManageCourseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textView: TextView = itemView.itemSingleLineText
 
         init {
             itemView.setOnClickListener {
+                viewModel.CourseEdit = true
+                viewModel.SelectedCourse = courseList.value?.get(adapterPosition)!!
                 onClick(adapterPosition)
-                viewModel.SelectedCourseName = courseList.value?.get(adapterPosition)?.Name ?: ""
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ManageCourseViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_single_name_item, parent, false)
-        return CourseViewHolder(itemView)
+        return ManageCourseViewHolder(itemView)
     }
 
     override fun getItemCount(): Int {
         return courseList.value?.size ?: 0
     }
 
-    override fun onBindViewHolder(holder: CourseViewHolder, position: Int) {
-        val currentitem = courseList.value?.get(position)
-        if (currentitem != null) {
-            holder.textView.setText(currentitem.Name.toString())
+    override fun onBindViewHolder(holder: ManageCourseViewHolder, position: Int) {
+        val currentItem = courseList.value?.get(position)
+        if (currentItem != null) {
+            holder.textView.setText(currentItem.Name.toString())
         }
     }
 }

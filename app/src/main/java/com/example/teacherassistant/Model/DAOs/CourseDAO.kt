@@ -13,6 +13,9 @@ interface CourseDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun inserCourse(course:Course)
 
+    @Update
+    suspend fun updateCourse(course: Course)
+
     @Delete
-    fun deleteCourse(course: Course)
+    suspend fun deleteCourse(course: Course)
 }

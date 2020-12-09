@@ -16,9 +16,9 @@ import com.example.teacherassistant.viewModel.ListAdapters.AdapterCourseList
 import com.example.teacherassistant.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_course_list.*
 
-private lateinit var viewModel:MainViewModel
 
 class CourseListFragment : Fragment() {
+    private lateinit var viewModel: MainViewModel
     private lateinit var myAdapter: AdapterCourseList
     private lateinit var myLayoutManager: LinearLayoutManager
     private lateinit var recyclerView: RecyclerView
@@ -32,13 +32,14 @@ class CourseListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val innerOnClick = { position: Int ->
-            view?.findNavController()?.navigate(R.id.action_courseListFragment_to_selectedCourseStudentListFragment)
+            view?.findNavController()
+                ?.navigate(R.id.action_courseListFragment_to_selectedCourseStudentListFragment)
         }
 
         // Inflate the layout for this fragment
-        myLayoutManager= LinearLayoutManager(context)
+        myLayoutManager = LinearLayoutManager(context)
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
-        myAdapter = AdapterCourseList(viewModel.courses, innerOnClick as (Int) -> Unit)
+        myAdapter = AdapterCourseList(viewModel.courses, innerOnClick as (Int) -> Unit, viewModel)
 
         viewModel.courses.observe(viewLifecycleOwner, Observer {
             myAdapter.notifyDataSetChanged()
@@ -49,7 +50,7 @@ class CourseListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView=recyclerCourseList.apply {
+        recyclerView = recyclerCourseList.apply {
             this.layoutManager = myLayoutManager
             this.adapter = myAdapter
         }
