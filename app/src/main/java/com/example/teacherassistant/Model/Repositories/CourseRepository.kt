@@ -7,7 +7,7 @@ import com.example.teacherassistant.Model.DAOs.CourseDAO
 import kotlinx.coroutines.flow.Flow
 
 class CourseRepository(private val courseDAO: CourseDAO) {
-    val allCourses: LiveData<List<Course>> = courseDAO.getAlphabetizedCourseNames()
+    val allCourses: LiveData<List<Course>> = courseDAO.getAllCourses()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread

@@ -1,10 +1,7 @@
 package com.example.teacherassistant.Model.DAOs
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.teacherassistant.Model.Student
 
 @Dao
@@ -14,4 +11,7 @@ interface StudentDAO {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertStudent(student:Student)
+
+    @Delete
+    fun deleteStudent(student: Student)
 }
