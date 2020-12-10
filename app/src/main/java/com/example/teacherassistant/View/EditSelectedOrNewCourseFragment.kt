@@ -47,12 +47,11 @@ class EditSelectedOrNewCourseFragment : Fragment() {
         submitCourseBtn.setOnClickListener {
             if (viewModel.CourseEdit) {
                 viewModel.SelectedCourse.Name = editCourseTextView.text.toString()
-                viewModel.updateCourse()
-                parentFragmentManager.popBackStack()
+                viewModel.updateSelectedCourse()
             } else {
                 viewModel.addCourse(editCourseTextView.text.toString())
-                parentFragmentManager.popBackStack()
             }
+            parentFragmentManager.popBackStack()
         }
 
     }

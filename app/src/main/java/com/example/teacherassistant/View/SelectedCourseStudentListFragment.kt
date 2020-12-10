@@ -28,6 +28,6 @@ class SelectedCourseStudentListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        courseNameDisplayer.setText(viewModel.SelectedCourseName.toString())
+        courseNameDisplayer.setText(viewModel.SelectedCourse.Name.toString())
     }
 }

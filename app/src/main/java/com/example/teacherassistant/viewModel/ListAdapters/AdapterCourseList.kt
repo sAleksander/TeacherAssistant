@@ -22,7 +22,7 @@ class AdapterCourseList(
         init {
             itemView.setOnClickListener {
                 onClick(adapterPosition)
-                viewModel.SelectedCourseName = courseList.value?.get(adapterPosition)?.Name ?: ""
+                viewModel.SelectedCourse = courseList.value?.get(adapterPosition)!!
             }
         }
     }

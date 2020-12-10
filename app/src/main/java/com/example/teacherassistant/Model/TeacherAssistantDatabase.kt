@@ -5,11 +5,13 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.teacherassistant.Model.DAOs.CourseDAO
+import com.example.teacherassistant.Model.DAOs.StudentDAO
 
-@Database(entities = [Course::class], version = 1, exportSchema = false)
+@Database(entities = [Course::class, Student::class], version = 1, exportSchema = false)
 public abstract class TeacherAssistantDatabase : RoomDatabase() {
 
     abstract fun CourseDAO(): CourseDAO
+    abstract fun StudentDAO(): StudentDAO
 
     companion object{
         @Volatile
