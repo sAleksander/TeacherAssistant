@@ -24,20 +24,19 @@ class EditSelectedOrNewCourseFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        viewModel=ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         return inflater.inflate(R.layout.fragment_edit_selected_or_new_course, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(viewModel.CourseEdit){
+        if (viewModel.CourseEdit) {
             editCourseTextView.setText(viewModel.SelectedCourse.Name.toString())
-            deleteCourseBtn.isEnabled=true
-        }
-        else{
+            deleteCourseBtn.isEnabled = true
+        } else {
             editCourseTextView.setText("")
-            deleteCourseBtn.isEnabled=false
+            deleteCourseBtn.isEnabled = false
         }
 
         deleteCourseBtn.setOnClickListener {
@@ -46,7 +45,14 @@ class EditSelectedOrNewCourseFragment : Fragment() {
         }
 
         submitCourseBtn.setOnClickListener {
-            viewModel.addCourse(editCourseTextView.text.toString())
+            if (viewModel.CourseEdit) {
+                viewModel.SelectedCourse.Name = editCourseTextView.text.toString()
+                viewModel.updateCourse()
+                parentFragmentManager.popBackStack()
+            } else {
+                viewModel.addCourse(editCourseTextView.text.toString())
+                parentFragmentManager.popBackStack()
+            }
         }
 
     }

@@ -33,6 +33,12 @@ class MainViewModel(application: Application):AndroidViewModel(application) {
         }
     }
 
+    fun updateCourse(){
+        viewModelScope.launch {
+            courseRepository.update(SelectedCourse)
+        }
+    }
+
     fun deleteSelectedCourse(){
         viewModelScope.launch {
             courseRepository.delete(SelectedCourse)
