@@ -7,8 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.teacherassistant.Model.Course
 import com.example.teacherassistant.Model.Repositories.CourseRepository
+import com.example.teacherassistant.Model.Repositories.StudentCourseRelationRepository
 import com.example.teacherassistant.Model.Repositories.StudentRepository
 import com.example.teacherassistant.Model.Student
+import com.example.teacherassistant.Model.StudentCourseRelation
 import com.example.teacherassistant.Model.TeacherAssistantDatabase
 import kotlinx.coroutines.launch
 
@@ -22,6 +24,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val courseRepository: CourseRepository
     val students: LiveData<List<Student>>
     private val studentRepository: StudentRepository
+    private val studentCourseRelationRepository: StudentCourseRelationRepository
+
 
     init {
         courses = TeacherAssistantDatabase.getDatabase(application).CourseDAO().getAllCourses()
@@ -31,6 +35,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         students = TeacherAssistantDatabase.getDatabase(application).StudentDAO().getAllStudents()
         studentRepository =
             StudentRepository(TeacherAssistantDatabase.getDatabase(application).StudentDAO())
+
+        studentCourseRelationRepository = StudentCourseRelationRepository(
+            TeacherAssistantDatabase.getDatabase(application).StudentCourseRelationDAO()
+        )
     }
 
     fun addCourse(name: String) {
@@ -69,4 +77,23 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun getSelectedCourseStudents(): LiveData<List<StudentCourseRelation>> {
+        return studentCourseRelationRepository.getStudentByCourse(SelectedCourse.Id)
+    }
+
+    fun getSelectedStudentCourses(): LiveData<List<StudentCourseRelation>> {
+        return studentCourseRelationRepository.getCourseByStudent(SelectedStudent.Id)
+    }
+
+    fun deleteStudentCourseRelation(studentCourseRelation: StudentCourseRelation) {
+        viewModelScope.launch {
+            studentCourseRelationRepository.delete(studentCourseRelation)
+        }
+    }
+
+    fun addStudentCourseRelation(studentId: Int, courseId: Int) {
+        viewModelScope.launch {
+            studentCourseRelationRepository.insert(studentId,courseId)
+        }
+    }
 }

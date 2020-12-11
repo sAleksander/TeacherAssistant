@@ -22,11 +22,12 @@ class AdapterManageStudentList(
 
         init {
             textView.setOnClickListener {
-                viewModel.StudentEdit = true
                 viewModel.SelectedStudent = studentList.value?.get(adapterPosition)!!
                 onTextClick(adapterPosition)
             }
             button.setOnClickListener {
+                viewModel.StudentEdit = true
+                viewModel.SelectedStudent = studentList.value?.get(adapterPosition)!!
                 onButtonClick(adapterPosition)
             }
         }
@@ -48,4 +49,6 @@ class AdapterManageStudentList(
             holder.textView.setText(currentItem.FirstName.toString() + " " + currentItem.LastName.toString())
         }
     }
+
+
 }

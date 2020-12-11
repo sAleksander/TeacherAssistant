@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.teacherassistant.R
 import com.example.teacherassistant.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_edit_selected_or_new_course.*
@@ -41,7 +42,7 @@ class EditSelectedOrNewCourseFragment : Fragment() {
 
         deleteCourseBtn.setOnClickListener {
             viewModel.deleteSelectedCourse()
-            parentFragmentManager.popBackStack()
+            findNavController().popBackStack()
         }
 
         submitCourseBtn.setOnClickListener {
@@ -51,7 +52,7 @@ class EditSelectedOrNewCourseFragment : Fragment() {
             } else {
                 viewModel.addCourse(editCourseTextView.text.toString())
             }
-            parentFragmentManager.popBackStack()
+            findNavController().popBackStack()
         }
 
     }
