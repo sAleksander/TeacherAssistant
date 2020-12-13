@@ -39,10 +39,12 @@ class EditSelectedOrNewStudentFragment : Fragment() {
             myAdapter.notifyDataSetChanged()
         })
 
-        viewModel.getSelectedStudentCourses().observe(viewLifecycleOwner, Observer {
-            myAdapter.studentCourseRelation = it
-            myAdapter.notifyDataSetChanged()
-        })
+        if(viewModel.StudentEdit) {
+            viewModel.getSelectedStudentCourses().observe(viewLifecycleOwner, Observer {
+                myAdapter.studentCourseRelation = it
+                myAdapter.notifyDataSetChanged()
+            })
+        }
 
         return inflater.inflate(R.layout.fragment_edit_selected_or_new_student, container, false)
     }

@@ -1,10 +1,8 @@
 package com.example.teacherassistant.viewModel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.util.Log
+import androidx.lifecycle.*
 import com.example.teacherassistant.Model.Course
 import com.example.teacherassistant.Model.Repositories.CourseRepository
 import com.example.teacherassistant.Model.Repositories.StudentCourseRelationRepository
@@ -95,5 +93,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             studentCourseRelationRepository.insert(studentId,courseId)
         }
+    }
+
+    fun getStudentListBySelectedCourse(): LiveData<List<Student>> {
+        return studentCourseRelationRepository.getStudentListByCourse(SelectedCourse.Id)
     }
 }

@@ -3,6 +3,7 @@ package com.example.teacherassistant.Model.Repositories
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import com.example.teacherassistant.Model.DAOs.StudentCourseRelationDAO
+import com.example.teacherassistant.Model.Student
 import com.example.teacherassistant.Model.StudentCourseRelation
 
 class StudentCourseRelationRepository(private val studentCourseRelationDAO: StudentCourseRelationDAO) {
@@ -13,6 +14,10 @@ class StudentCourseRelationRepository(private val studentCourseRelationDAO: Stud
 
     fun getCourseByStudent(studentId:Int): LiveData<List<StudentCourseRelation>>{
         return studentCourseRelationDAO.getCoursesByStudent(studentId)
+    }
+
+    fun getStudentListByCourse(selectedCourseId:Int):LiveData<List<Student>>{
+        return studentCourseRelationDAO.getStudentListByCourse(selectedCourseId)
     }
 
     @Suppress("RedundantSuspendModifier")
