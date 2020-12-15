@@ -11,15 +11,15 @@ class Grade(
     val StudentId: Int,
     val CourseId: Int,
     private var grade: Int,
-    val description: String = ""
+    var description: String = "",
+    var updateDate: String = LocalDate.now().toString()
 )
 {
-   var updateDate: LocalDate? = LocalDate.now()
     fun getGrade():Int{
        return grade
     }
     fun setGrade(newGrade: Int){
-        updateDate = LocalDate.now()
+        updateDate = LocalDate.now().toString()
         grade = newGrade
     }
 }

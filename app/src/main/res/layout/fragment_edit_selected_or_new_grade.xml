@@ -39,7 +39,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/submitGradeBtn"
+            android:id="@+id/deleteGradeBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -48,7 +48,7 @@
             android:textColor="@android:color/white" />
 
         <Button
-            android:id="@+id/addGradeBtn"
+            android:id="@+id/submitGradeBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

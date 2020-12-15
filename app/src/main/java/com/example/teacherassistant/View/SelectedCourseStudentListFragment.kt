@@ -32,12 +32,14 @@ class SelectedCourseStudentListFragment : Fragment() {
         // Inflate the layout for this fragment
 
         val onItemClick = { position: Int ->
-            view?.findNavController()?.navigate(R.id.action_selectedCourseStudentListFragment_to_selectedStudentGradeListFragment)
+            view?.findNavController()
+                ?.navigate(R.id.action_selectedCourseStudentListFragment_to_selectedStudentGradeListFragment)
         }
 
         myLayoutManager = LinearLayoutManager(context)
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
-        myAdapter= AdapterSelectedCourseStudentList(viewModel,
+        myAdapter = AdapterSelectedCourseStudentList(
+            viewModel,
             onItemClick as (Int) -> Unit
         )
 

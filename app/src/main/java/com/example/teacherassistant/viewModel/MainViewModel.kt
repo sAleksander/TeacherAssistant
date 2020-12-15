@@ -3,13 +3,11 @@ package com.example.teacherassistant.viewModel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.teacherassistant.Model.Course
+import com.example.teacherassistant.Model.*
 import com.example.teacherassistant.Model.Repositories.CourseRepository
+import com.example.teacherassistant.Model.Repositories.GradeRepository
 import com.example.teacherassistant.Model.Repositories.StudentCourseRelationRepository
 import com.example.teacherassistant.Model.Repositories.StudentRepository
-import com.example.teacherassistant.Model.Student
-import com.example.teacherassistant.Model.StudentCourseRelation
-import com.example.teacherassistant.Model.TeacherAssistantDatabase
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -17,12 +15,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     lateinit var SelectedStudent: Student
     var CourseEdit = false
     lateinit var SelectedCourse: Course
+    var GradeEdit = false
+    lateinit var SelectedGrade:Grade
 
     val courses: LiveData<List<Course>>
     private val courseRepository: CourseRepository
     val students: LiveData<List<Student>>
     private val studentRepository: StudentRepository
     private val studentCourseRelationRepository: StudentCourseRelationRepository
+    private val gradeRepository: GradeRepository
 
 
     init {
@@ -36,6 +37,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         studentCourseRelationRepository = StudentCourseRelationRepository(
             TeacherAssistantDatabase.getDatabase(application).StudentCourseRelationDAO()
+        )
+
+        gradeRepository = GradeRepository(
+            TeacherAssistantDatabase.getDatabase(application).GradeDAO()
         )
     }
 
@@ -91,11 +96,40 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun addStudentCourseRelation(studentId: Int, courseId: Int) {
         viewModelScope.launch {
-            studentCourseRelationRepository.insert(studentId,courseId)
+            studentCourseRelationRepository.insert(studentId, courseId)
         }
     }
 
     fun getStudentListBySelectedCourse(): LiveData<List<Student>> {
         return studentCourseRelationRepository.getStudentListByCourse(SelectedCourse.Id)
+    }
+
+    fun getGradesByStudentAndCourse(): LiveData<List<Grade>> {
+        return gradeRepository.getGradeByCourseAndStudent(SelectedCourse.Id, SelectedStudent.Id)
+    }
+
+    fun addGrade(grade: Int, description: String = "") {
+        viewModelScope.launch {
+            gradeRepository.insert(
+                Grade(
+                    StudentId = SelectedStudent.Id,
+                    CourseId = SelectedCourse.Id,
+                    grade = grade,
+                    description = description
+                )
+            )
+        }
+    }
+
+    fun updateSelectedGrade(){
+        viewModelScope.launch {
+            gradeRepository.update(SelectedGrade)
+        }
+    }
+
+    fun deleteSelectedGrade(){
+        viewModelScope.launch {
+            gradeRepository.delete(SelectedGrade)
+        }
     }
 }

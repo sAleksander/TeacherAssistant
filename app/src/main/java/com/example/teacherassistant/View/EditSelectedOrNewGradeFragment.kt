@@ -5,29 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.teacherassistant.R
+import com.example.teacherassistant.viewModel.MainViewModel
+import kotlinx.android.synthetic.main.fragment_edit_selected_or_new_course.*
+import kotlinx.android.synthetic.main.fragment_edit_selected_or_new_grade.*
+import kotlinx.android.synthetic.main.fragment_selected_student_grade_list.*
+import kotlinx.android.synthetic.main.fragment_selected_student_grade_list.courseNameDisplayer
+import kotlinx.android.synthetic.main.fragment_selected_student_grade_list.studentNameDisplayer
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [EditSelectedOrNewGradeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class EditSelectedOrNewGradeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -35,26 +28,43 @@ class EditSelectedOrNewGradeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         return inflater.inflate(R.layout.fragment_edit_selected_or_new_grade, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment EditSelectedOrNewGradeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            EditSelectedOrNewGradeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        courseNameDisplayer.setText(viewModel.SelectedCourse.Name.toString())
+        studentNameDisplayer.setText(viewModel.SelectedStudent.FirstName.toString() + " " + viewModel.SelectedStudent.LastName.toString())
+
+        if (viewModel.GradeEdit) {
+            editGrade.setText(viewModel.SelectedGrade.getGrade().toString())
+            editDescription.setText(viewModel.SelectedGrade.description.toString())
+            deleteGradeBtn.isEnabled = true
+        } else {
+            editGrade.setText("")
+            editDescription.setText("")
+            deleteGradeBtn.isEnabled = false
+        }
+
+        deleteGradeBtn.setOnClickListener {
+            viewModel.deleteSelectedGrade()
+            findNavController().popBackStack()
+        }
+
+        submitGradeBtn.setOnClickListener {
+            if (viewModel.GradeEdit) {
+                viewModel.SelectedGrade.setGrade(editGrade.text.toString().toInt())
+                viewModel.SelectedGrade.description = editDescription.toString()
+            } else {
+               viewModel.addGrade(
+                   editGrade.text.toString().toInt(),
+                   editDescription.text.toString()
+               )
             }
+            findNavController().popBackStack()
+        }
+
+
     }
 }
