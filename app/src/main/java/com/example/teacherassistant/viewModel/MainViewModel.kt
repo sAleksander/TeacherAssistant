@@ -80,10 +80,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun getSelectedCourseStudents(): LiveData<List<StudentCourseRelation>> {
-        return studentCourseRelationRepository.getStudentByCourse(SelectedCourse.Id)
-    }
-
     fun getSelectedStudentCourses(): LiveData<List<StudentCourseRelation>> {
         return studentCourseRelationRepository.getCourseByStudent(SelectedStudent.Id)
     }
@@ -102,6 +98,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getStudentListBySelectedCourse(): LiveData<List<Student>> {
         return studentCourseRelationRepository.getStudentListByCourse(SelectedCourse.Id)
+    }
+
+    fun getCourseListBySelectedStudent(): LiveData<List<Course>>{
+        return studentCourseRelationRepository.getCourseListByStudent(SelectedStudent.Id)
     }
 
     fun getGradesByStudentAndCourse(): LiveData<List<Grade>> {
