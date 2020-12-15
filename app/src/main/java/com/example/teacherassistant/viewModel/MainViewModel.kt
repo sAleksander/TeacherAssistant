@@ -132,4 +132,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             gradeRepository.delete(SelectedGrade)
         }
     }
+
+    fun getRecentGrades():LiveData<List<Grade>>{
+        return gradeRepository.getRecentGrades()
+    }
 }
