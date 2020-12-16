@@ -1,11 +1,21 @@
 package com.example.teacherassistant.Model
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 import java.time.LocalDate
 import java.util.*
 
-@Entity()
+@Entity(foreignKeys = [
+    ForeignKey(
+        entity = Student::class,
+        parentColumns = ["Id"],
+        childColumns = ["StudentId"],
+        onDelete = CASCADE
+    )
+])
+
 class Grade(
     @PrimaryKey(autoGenerate = true) val Id: Int = 0,
     val StudentId: Int,
