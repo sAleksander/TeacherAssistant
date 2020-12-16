@@ -38,7 +38,7 @@ class AdapterSelectedStudentGradeList(
     }
 
     override fun getItemCount(): Int {
-        return gradesAsignedToStudentAndCourse.size
+        return gradesAsignedToStudentAndCourse.size // razy dwa nie wiem czemu
     }
 
     override fun onBindViewHolder(holder: SelectedStudentGradeViewHolder, position: Int) {

@@ -56,6 +56,7 @@ class EditSelectedOrNewGradeFragment : Fragment() {
             if (viewModel.GradeEdit) {
                 viewModel.SelectedGrade.setGrade(editGrade.text.toString().toInt())
                 viewModel.SelectedGrade.description = editDescription.toString()
+                viewModel.updateSelectedGrade()
             } else {
                viewModel.addGrade(
                    editGrade.text.toString().toInt(),

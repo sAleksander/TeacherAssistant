@@ -6,7 +6,7 @@ import com.example.teacherassistant.Model.Grade
 
 @Dao
 interface GradeDAO {
-    @Query("SELECT * FROM Grade, Student, Course WHERE Grade.StudentId = :studentId AND Grade.CourseId = :courseId")
+    @Query("SELECT Grade.* FROM Grade, Student, Course WHERE Grade.StudentId = :studentId AND Grade.CourseId = :courseId")
     fun getOrderedGrades(studentId: Int, courseId: Int): LiveData<List<Grade>>
 
     @Query("SELECT * FROM Grade WHERE Grade.updateDate = :today")
