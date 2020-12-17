@@ -11,14 +11,13 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teacherassistant.R
-import com.example.teacherassistant.viewModel.ListAdapters.AdapterManageCourseList
-import com.example.teacherassistant.viewModel.ListAdapters.AdapterManageStudentList
+import com.example.teacherassistant.viewModel.ListAdapters.AdapterToDoList
 import com.example.teacherassistant.viewModel.MainViewModel
-import kotlinx.android.synthetic.main.fragment_manage_student_list.*
+import kotlinx.android.synthetic.main.fragment_to_do_list.*
 
-class ManageStudentListFragment : Fragment() {
+class ToDoList : Fragment() {
     private lateinit var viewModel: MainViewModel
-    private lateinit var myAdapter: AdapterManageStudentList
+    private lateinit var myAdapter: AdapterToDoList
     private lateinit var myLayoutManager: LinearLayoutManager
     private lateinit var recyclerView: RecyclerView
 
@@ -32,37 +31,30 @@ class ManageStudentListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        val textViewClick = { position: Int ->
-            view?.findNavController()
-                ?.navigate(R.id.action_manageStudentListFragment_to_selectedStudentCourseListFragment)
-        }
-        val buttonClick = { position: Int ->
-            view?.findNavController()
-                ?.navigate(R.id.action_manageStudentListFragment_to_editSelectedOrNewStudentFragment)
+        val innerOnClick = { position: Int ->
+            view?.findNavController()?.navigate(R.id.action_toDoList2_to_editSelectedOrNewToDoFragment2)
         }
 
         myLayoutManager = LinearLayoutManager(context)
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
-        myAdapter = AdapterManageStudentList(
-            viewModel.students, textViewClick as (Int) -> Unit,
-            buttonClick as (Int) -> Unit, viewModel
-        )
+        myAdapter = AdapterToDoList(viewModel.toDos, innerOnClick as (Int) -> Unit, viewModel)
 
-        viewModel.students.observe(viewLifecycleOwner, Observer {
+        viewModel.toDos.observe(viewLifecycleOwner, Observer {
             myAdapter.notifyDataSetChanged()
         })
 
-        return inflater.inflate(R.layout.fragment_manage_student_list, container, false)
+        return inflater.inflate(R.layout.fragment_to_do_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        goEditItem.setOnClickListener { view ->
-            viewModel.StudentEdit = false
-            view.findNavController().navigate(R.id.action_manageStudentListFragment_to_editSelectedOrNewStudentFragment)
+
+        goEditItem.setOnClickListener {
+            viewModel.ToDoEdit = false
+            view.findNavController().navigate(R.id.action_toDoList2_to_editSelectedOrNewToDoFragment2)
         }
 
-        recyclerView = recyclerManageStudentList.apply {
+        recyclerView = recyclerToDoList.apply {
             this.layoutManager = myLayoutManager
             this.adapter = myAdapter
         }

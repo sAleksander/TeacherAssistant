@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_homeFragment_to_todaysActivitiesFragment"
             app:destination="@id/todaysActivitiesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_toDoList2"
+            app:destination="@id/toDoList2" />
     </fragment>
     <fragment
         android:id="@+id/courseListFragment"
@@ -100,4 +103,18 @@
         android:name="com.example.teacherassistant.View.TodaysActivitiesFragment"
         android:label="fragment_todays_activities"
         tools:layout="@layout/fragment_todays_activities" />
+    <fragment
+        android:id="@+id/editSelectedOrNewToDoFragment2"
+        android:name="com.example.teacherassistant.View.EditSelectedOrNewToDoFragment"
+        android:label="fragment_edit_selected_or_new_to_do"
+        tools:layout="@layout/fragment_edit_selected_or_new_to_do" />
+    <fragment
+        android:id="@+id/toDoList2"
+        android:name="com.example.teacherassistant.View.ToDoList"
+        android:label="fragment_to_do_list"
+        tools:layout="@layout/fragment_to_do_list" >
+        <action
+            android:id="@+id/action_toDoList2_to_editSelectedOrNewToDoFragment2"
+            app:destination="@id/editSelectedOrNewToDoFragment2" />
+    </fragment>
 </navigation>

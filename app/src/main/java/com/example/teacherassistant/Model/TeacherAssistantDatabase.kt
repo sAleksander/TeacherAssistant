@@ -4,18 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.teacherassistant.Model.DAOs.CourseDAO
-import com.example.teacherassistant.Model.DAOs.GradeDAO
-import com.example.teacherassistant.Model.DAOs.StudentCourseRelationDAO
-import com.example.teacherassistant.Model.DAOs.StudentDAO
+import com.example.teacherassistant.Model.DAOs.*
 
-@Database(entities = [Course::class, Student::class, StudentCourseRelation::class, Grade::class], version = 1, exportSchema = false)
+@Database(entities = [Course::class, Student::class, StudentCourseRelation::class, Grade::class, ToDo::class], version = 1, exportSchema = false)
 public abstract class TeacherAssistantDatabase : RoomDatabase() {
 
     abstract fun CourseDAO(): CourseDAO
     abstract fun StudentDAO(): StudentDAO
     abstract fun StudentCourseRelationDAO(): StudentCourseRelationDAO
     abstract fun GradeDAO(): GradeDAO
+    abstract fun ToDoDAO(): ToDoDAO
 
     companion object{
         @Volatile

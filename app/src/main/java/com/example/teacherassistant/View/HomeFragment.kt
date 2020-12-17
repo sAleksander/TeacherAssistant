@@ -28,5 +28,6 @@ class HomeFragment : Fragment() {
         goManageStudentList.setOnClickListener { view -> view.findNavController().navigate(R.id.action_homeFragment_to_manageStudentListFragment) }
         goManageCourseList.setOnClickListener { view -> view.findNavController().navigate(R.id.action_homeFragment_to_manageCourseListFragment) }
         goTodaysActivities.setOnClickListener { view -> view.findNavController().navigate(R.id.action_homeFragment_to_todaysActivitiesFragment) }
+        goToDo.setOnClickListener { view -> view.findNavController().navigate(R.id.action_homeFragment_to_toDoList2) }
     }
 }

@@ -4,10 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.teacherassistant.Model.*
-import com.example.teacherassistant.Model.Repositories.CourseRepository
-import com.example.teacherassistant.Model.Repositories.GradeRepository
-import com.example.teacherassistant.Model.Repositories.StudentCourseRelationRepository
-import com.example.teacherassistant.Model.Repositories.StudentRepository
+import com.example.teacherassistant.Model.Repositories.*
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -17,6 +14,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     lateinit var SelectedCourse: Course
     var GradeEdit = false
     lateinit var SelectedGrade:Grade
+    var ToDoEdit = false
+    lateinit var SelectedToDo:ToDo
 
     val courses: LiveData<List<Course>>
     private val courseRepository: CourseRepository
@@ -24,6 +23,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val studentRepository: StudentRepository
     private val studentCourseRelationRepository: StudentCourseRelationRepository
     private val gradeRepository: GradeRepository
+    val toDos: LiveData<List<ToDo>>
+    private val toDoRepository: ToDoRepository
+
 
 
     init {
@@ -42,6 +44,27 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         gradeRepository = GradeRepository(
             TeacherAssistantDatabase.getDatabase(application).GradeDAO()
         )
+
+        toDos = TeacherAssistantDatabase.getDatabase(application).ToDoDAO().getAllToDos()
+        toDoRepository = ToDoRepository(TeacherAssistantDatabase.getDatabase(application).ToDoDAO())
+    }
+
+    fun addToDo(title:String, description: String){
+        viewModelScope.launch {
+            toDoRepository.insert(ToDo(Title = title, Description = description))
+        }
+    }
+
+    fun updateSelectedToDo(){
+        viewModelScope.launch {
+            toDoRepository.update(SelectedToDo)
+        }
+    }
+
+    fun deleteSelectedToDo(){
+        viewModelScope.launch {
+            toDoRepository.delete(SelectedToDo)
+        }
     }
 
     fun addCourse(name: String) {
